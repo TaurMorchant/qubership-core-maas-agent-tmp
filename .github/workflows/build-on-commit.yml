@@ -46,8 +46,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dproject.settings=maas-agent-service/sonar-project.properties
+            -Dproject.settings=sonar-project.properties
             -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
             -Dsonar.organization=vladislav-larkin-test-organization
-            -Dsonar.go.coverage.reportPaths=maas-agent-service/coverage.out
+            -Dsonar.go.coverage.reportPaths=coverage.out
+        working-directory: maas-agent-service
 
