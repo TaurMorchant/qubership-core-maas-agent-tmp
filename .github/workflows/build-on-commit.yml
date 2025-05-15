@@ -35,14 +35,12 @@ jobs:
           npm install -g sonar-scanner
 
       - name: Build
-        run: |
-          cd maas-agent-service
-          CGO_ENABLED=0 go build
+        working-directory: maas-agent-service
+        run: CGO_ENABLED=0 go build
 
       - name: Test with coverage
-        run: |
-          cd maas-agent-service
-          go test -v ./... -coverprofile coverage.out
+        working-directory: maas-agent-service
+        run: go test -v ./... -coverprofile coverage.out
 
       - name: Upload coverage report to SonarCloud
         working-directory: maas-agent-service
