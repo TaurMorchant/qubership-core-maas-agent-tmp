@@ -41,14 +41,13 @@ jobs:
           go test -v ./... -coverprofile coverage.out
 
       - name: Upload coverage report to SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2
+        working-directory: maas-agent-service
+        run: |
+          sonar-scanner \
+            -Dproject.settings=sonar-project.properties \
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=vladislav-larkin-test-organization \
+            -Dsonar.go.coverage.reportPaths=coverage.out
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dproject.settings=sonar-project.properties
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=vladislav-larkin-test-organization
-            -Dsonar.go.coverage.reportPaths=coverage.out
-        working-directory: maas-agent-service
 
